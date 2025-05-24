@@ -2,29 +2,39 @@ import numpy as np
 import librosa
 import librosa.display 
 import matplotlib.pyplot as plt
-# import scipy.io.wavfile as sp
-import scipy.io.wavfile as sp
+
+FIG_SIZE = (15, 10)
+file = r"C:\Users\zzine\OneDrive\문서\카카오톡 받은 파일\만석로19번길.wav"
+sig, sr = librosa.load(file, sr=22050)
+
+print(sig, sig.shape)
+
+fft = np.fft.fft(sig)
+
+# 복소공간 값 절댓갑 취해서, magnitude 구하기
+magnitude = np.abs(fft) 
+
+print(fft)
+# Frequency 값 만들기
+f = np.linspace(0,sr,len(magnitude))
+
+# 푸리에 변환을 통과한 specturm은 대칭구조로 나와서 high frequency 부분 절반을 날려고 앞쪽 절반만 사용한다.
+left_spectrum = magnitude[:int(len(magnitude)/2)]
+left_f = f[:int(len(magnitude)/2)]
+
+plt.figure(figsize=FIG_SIZE)
+plt.plot(left_f, left_spectrum)
+plt.xlabel("Frequency")
+plt.ylabel("Magnitude")
+plt.title("Power spectrum")
+plt.show()
 
 
-# 초당 샘플링 데이터 수 
 
-def single_tone(frequecy, sampling_rate=44100, duration=1):
-    # frequency: 주파수
-    # sampling_rate: 초당 샘플링 데이터 수. 디폴트 44100
-    # duration: 지속 시간. 단위 초. 디폴트 1초
-    t = np.linspace(0, duration, int(sampling_rate))
-    y = np.sin(2 * np.pi * frequecy * t)
-    return y
-notes = 'C,C#,D,D#,E,F,F#,G,G#,A,A#,B,C'.split(',')
-freqs = 261.62 * 2**(np.arange(0, len(notes)) / 12.)
-notes = list(zip(notes, freqs))
-octave = np.hstack([single_tone(f) for f in freqs])
-
-sampling_rate = 44100
-sp.write("octave.wav", sampling_rate, octave)
-
-sr, y_read = sp.read("octave.wav")
-# sr == sampling_rate
-
-plt.plot(y_read[40000:50000])
+plt.figure(figsize=FIG_SIZE)
+librosa.display.waveshow(y=sig, sr=sr, alpha=0.5)  # 인자명을 명시적으로 지정
+plt.xlabel("Time (s)")
+plt.ylabel("Amplitude")
+plt.title("Waveform")
+plt.tight_layout()
 plt.show()
