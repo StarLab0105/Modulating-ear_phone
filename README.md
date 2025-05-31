@@ -4,8 +4,8 @@
 
 ## 유의사항
 
-사용시 [file = r"경로"] 에서 경로를 수정하여 주세요.
-file = r"<span style="color:red"> C:\Users\zzine\OneDrive\문서\카카오톡 받은 파일\만석로19번길.wav</span>" 
+사용시 [file = r"경로"] 에서 경로를 수정하여 주세요.\
+*file = r"C:\Users\zzine\OneDrive\문서\카카오톡 받은 파일\만석로19번길.wav"*
 
 
 
