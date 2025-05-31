@@ -48,3 +48,7 @@ plt.ylabel("Amplitude")
 plt.title("Waveform")
 plt.tight_layout()
 plt.show()
+
+
+---
+# Installation Guide
