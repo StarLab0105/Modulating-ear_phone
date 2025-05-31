@@ -6,7 +6,7 @@
 
 
 
-
+```
 import numpy as np
 import librosa
 import librosa.display 
@@ -19,6 +19,7 @@ sig, sr = librosa.load(file, sr=22050)
 print(sig, sig.shape)
 
 fft = np.fft.fft(sig)
+```
 
 # 복소공간 값 절댓갑 취해서, magnitude 구하기
 magnitude = np.abs(fft) 
